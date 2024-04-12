@@ -1,9 +1,11 @@
 
 import express from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
 import dotenv from 'dotenv'
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
+import adminRoutes from './routes/admin.route.js'
 dotenv.config()
 
 mongoose.connect(process.env.MONGO).then(()=>{
@@ -11,6 +13,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
 }).catch((err)=>console.log(err))
 
 const app = express()
+app.use(cors());
 app.use(express.json())
 app.listen(3001,()=>{   
 console.log('server running');
@@ -18,6 +21,8 @@ console.log('server running');
 
 app.use("/api/user",userRoutes)
 app.use("/api/auth",authRoutes)
+app.use("/api/admin",adminRoutes)
+
 
 app.use((err,req,res,next)=>{
   const statusCode = err.statusCode || 500

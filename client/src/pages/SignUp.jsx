@@ -19,7 +19,7 @@ try {
 setLoading(true)
 const res = await fetch('/api/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)})
 const data = await res.json()
-setLoading(false)
+setLoading(false)                                  
 if(data.success === false){
   setError(true)
   return
@@ -27,6 +27,7 @@ if(data.success === false){
 navigate('/sign-in')
 console.log("data",data);
 } catch (error) {
+  console.log(error)
  setLoading(false)
  setError(true)
 }
